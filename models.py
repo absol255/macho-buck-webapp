@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from sqlalchemy import BigInteger
 
 db = SQLAlchemy()
 
@@ -12,7 +13,7 @@ db = SQLAlchemy()
 class User(db.Model):
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
 
     username = db.Column(
         db.String(64),
@@ -21,7 +22,7 @@ class User(db.Model):
     )
 
     macho_bucks = db.Column(
-        db.Integer,
+        db.BigInteger,
         default=0,
         nullable=False
     )
@@ -45,7 +46,7 @@ class User(db.Model):
 class Admin(UserMixin, db.Model):
     __tablename__ = "admins"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
 
     username = db.Column(
         db.String(64),
