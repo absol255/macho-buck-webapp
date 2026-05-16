@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Macho Bank Admin</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/navigation.css">
+    <link rel="stylesheet" href="/static/css/buttons.css">
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+
+    <div class="hero">
+        <h1 id="logo">MACHO BANK ADMIN</h1>
+    </div>
+
+    <nav>
+        <a class="nav" href="/">Home</a>
+        <a class="nav" href="/admin">Admin Panel</a>
+    </nav>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Create User</h2>
+
+            <input id="create-username" placeholder="Username">
+
+            <button class="button" onclick="createUser()">
+                Create User
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>Add Macho Bucks</h2>
+
+            <input id="bucks-username" placeholder="Username">
+            <input id="bucks-amount" type="number" placeholder="Amount">
+
+            <button class="button" onclick="addBucks()">
+                Add Bucks
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>Set Balance</h2>
+
+            <input id="set-username" placeholder="Username">
+            <input id="set-amount" type="number" placeholder="Amount">
+
+            <button class="button" onclick="setBucks()">
+                Set Balance
+            </button>
+        </div>
+
+        <div class="card">
+
+            <h2>Delete User</h2>
+        
+            <input
+                id="delete-username"
+                placeholder="Username"
+            >
+        
+            <button
+                class="button"
+                onclick="deleteUser()"
+            >
+                Delete User
+            </button>
+        
+        </div>
+
+        <div class="card">
+            <h2>Logout</h2>
+
+            <button
+                class="button"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+        </div>
+
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+
+</body>
+</html>

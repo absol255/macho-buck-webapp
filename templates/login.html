@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Macho Bank Login</title>
+
+    <link rel="stylesheet" href="/static/css/buttons.css">
+    <link rel="stylesheet" href="/static/css/navigation.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    
+<div class="container">
+
+
+    <div class="card">
+
+        <h1 id="logo">Admin Login</h1>
+
+        <nav>
+            <a class="nav" href="/">Home</a>
+            <a class="nav" href="/admin">Admin Panel</a>
+        </nav>
+
+        <input
+            id="username"
+            placeholder="Username"
+        >
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Password"
+        >
+
+        <button
+            class="button"
+            onclick="login()"
+        >
+            Login
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+async function login() {
+
+    const username =
+        document.getElementById("username").value
+
+    const password =
+        document.getElementById("password").value
+
+    const response = await fetch(
+        "/api/login",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                username,
+                password
+            })
+        }
+    )
+
+    const data = await response.json()
+
+    if (data.success) {
+        window.location = "/admin"
+    }
+    else {
+        alert(data.error)
+    }
+}
+
+</script>
+
+</body>
+</html>
