@@ -1,5 +1,3 @@
-const socket = io();
-
 async function loadUsers() {
     const response = await fetch("/api/users");
     const users = await response.json();
@@ -26,16 +24,4 @@ function renderUsers(users) {
     });
 }
 
-socket.on("balance_update", () => {
-    loadUsers();
-});
-
-socket.on("user_created", () => {
-    loadUsers();
-});
-
-socket.on("user_deleted", () => {
-    loadUsers();
-});
-
-loadUsers();
+setInterval(loadUsers, 3000);
