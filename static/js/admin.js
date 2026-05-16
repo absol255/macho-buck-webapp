@@ -38,6 +38,26 @@ async function addBucks() {
     alert(JSON.stringify(data, null, 2));
 }
 
+async function removeBucks() {
+    const username = document.getElementById("bucks-username").value;
+    const amount = document.getElementById("bucks-amount").value;
+
+    const response = await fetch("/api/admin/remove-bucks", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username,
+            amount
+        })
+    });
+
+    const data = await response.json();
+
+    alert(JSON.stringify(data, null, 2));
+}
+
 async function setBucks() {
     const username = document.getElementById("set-username").value;
     const amount = document.getElementById("set-amount").value;

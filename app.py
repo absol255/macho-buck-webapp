@@ -188,6 +188,43 @@ def add_bucks():
         "user": user.to_dict()
     })
 
+@app.route("/api/admin/remove-bucks", methods=["POST"])
+@login_required
+def remove_bucks():
+    data = request.json
+
+    username = data.get("username")
+    amount = data.get("amount")
+
+    if username is None or amount is None:
+        return jsonify({
+            "error": "Missing data"
+        }), 400
+
+    user = User.query.filter_by(
+        username=username
+    ).first()
+
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    user.macho_bucks -= int(amount)
+
+    db.session.commit()
+
+    payload = {
+        "username": user.username,
+        "macho_bucks": user.macho_bucks
+    }
+
+    socketio.emit("balance_update", payload
+    )
+
+    return jsonify({
+        "success": True,
+        "user": user.to_dict()
+    })
+
 @app.route("/api/admin/set-bucks", methods=["POST"])
 @login_required
 def set_bucks():
