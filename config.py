@@ -5,8 +5,7 @@ load_dotenv()
 
 class Config:
     SECRET_KEY = os.getenv(
-        "SECRET_KEY",
-        "b1df31b79189006c4ff166ebd786acf282f3b825f88345a38d6ab4b193be0f9f"
+        "SECRET_KEY"
     )
 
     SQLALCHEMY_DATABASE_URI = "sqlite:///macho_bank.db"
