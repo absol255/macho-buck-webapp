@@ -25,3 +25,4 @@ function renderUsers(users) {
 }
 
 setInterval(loadUsers, 3000);
+loadUsers()
