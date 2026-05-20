@@ -1,5 +1,3 @@
-const socket = io();
-
 async function createUser() {
     const username = document.getElementById("create-username").value;
 

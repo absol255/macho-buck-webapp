@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
-from flask_socketio import SocketIO, emit
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from config import Config
 from models import db, User, Admin
@@ -20,11 +19,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 login_manager.login_view = "login"
-
-socketio = SocketIO(
-    app,
-    cors_allowed_origins="*"
-)
 
 with app.app_context():
     db.create_all()
@@ -147,8 +141,6 @@ def create_user():
     db.session.add(user)
     db.session.commit()
 
-    socketio.emit("user_created", user.to_dict())
-
     return jsonify({"success": True, "user": user.to_dict()})
 
 @app.route("/api/admin/add-bucks", methods=["POST"])
@@ -174,14 +166,6 @@ def add_bucks():
     user.macho_bucks += int(amount)
 
     db.session.commit()
-
-    payload = {
-        "username": user.username,
-        "macho_bucks": user.macho_bucks
-    }
-
-    socketio.emit("balance_update", payload
-    )
 
     return jsonify({
         "success": True,
@@ -212,14 +196,6 @@ def remove_bucks():
 
     db.session.commit()
 
-    payload = {
-        "username": user.username,
-        "macho_bucks": user.macho_bucks
-    }
-
-    socketio.emit("balance_update", payload
-    )
-
     return jsonify({
         "success": True,
         "user": user.to_dict()
@@ -245,16 +221,6 @@ def set_bucks():
     user.macho_bucks = int(amount)
 
     db.session.commit()
-
-    payload = {
-        "username": user.username,
-        "macho_bucks": user.macho_bucks
-    }
-
-    socketio.emit(
-        "balance_update",
-        payload
-    )
 
     return jsonify({
         "success": True,
@@ -286,29 +252,10 @@ def delete_user():
     db.session.delete(user)
     db.session.commit()
 
-    socketio.emit(
-        "user_deleted",
-        {
-            "username": username
-        }
-    )
-
     return jsonify({
         "success": True,
         "deleted_user": username
     })
-
-@socketio.on("connect")
-def handle_connect():
-    print("Client connected")
-
-    emit("connected", {
-        "message": "Connected to Macho Bank"
-    })
-
-@socketio.on("disconnect")
-def handle_disconnect():
-    print("Client disconnected")
 
 @app.cli.command("create-admin")
 @click.argument("username")
@@ -352,9 +299,9 @@ def delete_admin(username):
     print(f"Deleted admin: {username}")
 
 if __name__ == "__main__":
-    socketio.run(
+    app.run(
         app,
         host="0.0.0.0",
         port=5000,
-        debug=True
+        debug=False
     )
