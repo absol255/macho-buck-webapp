@@ -4,6 +4,7 @@ from config import Config
 from models import db, User, Admin
 import time
 import click
+import waitress
 
 app = Flask(
     __name__,
@@ -300,8 +301,7 @@ def delete_admin(username):
 
 if __name__ == "__main__":
     app.run(
-        app,
-        host="0.0.0.0",
+        host='0.0.0.0',
         port=5000,
         debug=False
     )
