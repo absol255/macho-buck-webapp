@@ -4,7 +4,6 @@ from config import Config
 from models import db, User, Admin
 import time
 import click
-import waitress
 
 app = Flask(
     __name__,
