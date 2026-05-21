@@ -32,11 +32,17 @@ class User(db.Model):
         default=datetime.utcnow
     )
 
+    bank_account_number = db.Column(
+        db.BigInteger,
+        default=999
+    )
+
     def to_dict(self):
         return {
             "id": self.id,
             "username": self.username,
-            "macho_bucks": self.macho_bucks
+            "macho_bucks": self.macho_bucks,
+            "bank_account_number": self.bank_account_number
         }
 
 # -----------------------

@@ -1,5 +1,6 @@
 async function createUser() {
     const username = document.getElementById("create-username").value;
+    const bankaccnum = document.getElementById("create-bankaccnum").value;
 
     const response = await fetch("/api/admin/create-user", {
         method: "POST",
@@ -7,7 +8,8 @@ async function createUser() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            username
+            username,
+            bankaccnum
         })
     });
 

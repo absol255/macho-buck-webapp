@@ -118,6 +118,7 @@ def create_user():
     data = request.json
 
     username = data.get("username")
+    bankaccnum = data.get("bankaccnum")
 
     if not username:
         return jsonify({
@@ -135,7 +136,8 @@ def create_user():
 
     user = User(
         username=username,
-        macho_bucks=0
+        macho_bucks=0,
+        bank_account_number=bankaccnum
     )
 
     db.session.add(user)
