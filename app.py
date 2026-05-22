@@ -1,3 +1,4 @@
+from decimal import Decimal
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from config import Config
@@ -220,7 +221,7 @@ def set_bucks():
             "error": "User not found"
         }), 404
 
-    user.macho_bucks = int(amount)
+    user.macho_bucks = Decimal(str(amount))
 
     db.session.commit()
 
